@@ -1,37 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My HTML Template</title>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>JavaScript Slider</title>
+    <style>
+      /* Style the slider container and slides */
+      .slider {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        position: relative;
+      }
+      .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+      .slide.active {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider">
+      <div class="slide active">
+        <img src="" alt="Slide 1">
+      </div>
+      <div class="slide">
+        <img src="" alt="Slide 2">
+      </div>
+      <div class="slide">
+        <img src="" alt="Slide 3">
+      </div>
+    </div>
+    <script>
+      const slideImages = [
+  "https://picsum.photos/800/600?random=1",
+  "https://picsum.photos/800/600?random=2",
+  "https://picsum.photos/800/600?random=3"
+];
 
-  <!-- Your styles go here -->
-  <style>
-  h1 {
-    font-size: 24px;
-    color: #333;
+function createSlide() {
+  const slide = document.createElement("div");
+  slide.classList.add("slide");
+
+  const image = document.createElement("img");
+  image.src = slideImages[Math.floor(Math.random() * slideImages.length)];
+  image.alt = `Slide ${i + 1}`;
+  slide.appendChild(image);
+
+  return slide;
+}
+const slider = document.querySelector(".slider");
+
+for (let i = 0; i < 3; i++) {
+  slider.appendChild(createSlide());
+}
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(index) {
+  slides.forEach((slide) => {
+    slide.classList.remove("active");
+  });
+  slides[index].classList.add("active");
+}
+
+setInterval(() => {
+  slideIndex++;
+  if (slideIndex >= slides.length) {
+    slideIndex = 0;
   }
-</style>
+  showSlide(slideIndex);
+}, 3000);
 
-</head>
-<body>
-
-  <!-- Your content goes here -->
-  <h1>Welcome to my website!</h1>
-  <div class="slider">
-  <img src="https://picsum.photos/800/600">
-  <img src="https://picsum.photos/800/600">
-  <img src="https://picsum.photos/800/600">
-</div>
-
-
-  <!-- Your scripts go here -->
-  <script>
-  function logMessage() {
-    console.log('Hello, world!');
-  }
-
-  logMessage();
-</script>
-
-</body>
+    </script>
+  </body>
 </html>
